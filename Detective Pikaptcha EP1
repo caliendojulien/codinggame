@@ -1,0 +1,33 @@
+import sys
+import math
+
+width, height = [int(i) for i in input().split()]
+tab=[]
+## CONVERSION DE LA CHAINE DE CARACTERE EN TABLEAU 2D
+for i in range(height):
+    line = input()
+    ligne=list(line)
+    tab.append(ligne)
+
+for i in range(len(tab)):
+    for j in range(len(tab[i])):
+        if tab[i][j]!="#":
+            # Si celui de droite n'est pas un mur, on ajoute +1 a l'actuel
+            # mais aussi a celui de droite
+            if j<len(tab[i])-1 and tab[i][j+1]!="#":
+                tab[i][j]=str(int(tab[i][j])+1)
+                tab[i][j+1]=str(int(tab[i][j+1])+1)
+            # Si celui en dessous n'est pas un mur, on ajoute +1 a l'actuel
+            # mais aussi a celui d'en dessous'
+            if i<len(tab)-1 and tab[i+1][j]!="#":
+                tab[i][j]=str(int(tab[i][j])+1)
+                tab[i+1][j]=str(int(tab[i+1][j])+1)
+        else:
+            tab[i][j]='#'
+
+## AFFICHAGE
+for i in tab:
+    resultat=""
+    for j in i:
+        resultat+=j
+    print(resultat)
