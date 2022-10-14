@@ -1,0 +1,39 @@
+<?php
+
+fscanf(STDIN, "%s", $LON);
+fscanf(STDIN, "%s", $LAT);
+fscanf(STDIN, "%d", $N);
+$reponse="";
+$d=99999999999999;
+
+for ($i = 0; $i < $N; $i++) {
+    $defibs[]= explode(';', stream_get_line(STDIN, 256, "\n"));
+}
+$latitudeDeMoi=replaceVirgule($LAT);
+$longitudeDeMoi=replaceVirgule($LON);
+
+// defibs est une tableau de tableau
+foreach ($defibs as $defib) {
+    $latitudeDuDefib=replaceVirgule($defib[5]);
+    $longitudeDuDefib=replaceVirgule($defib[4]);
+    $distance=distance($latitudeDeMoi, $longitudeDeMoi, $latitudeDuDefib, $longitudeDuDefib);
+    if ($distance < $d) {
+        $d=$distance;
+        $reponse=$defib[1];
+    }
+}
+
+echo($reponse);
+
+
+function replaceVirgule($s) {
+    return (float) str_replace(',', '.', $s);
+}
+
+function distance($lat1, $long1, $lat2, $long2) {
+    $x=($long2-$long1)*cos(($lat1+$lat2)/2);
+    $y=$lat2-$lat1;
+    $d=sqrt(pow($x,2) + pow($y,2))*6371;
+    return $d;
+}
+?>
