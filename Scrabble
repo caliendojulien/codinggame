@@ -1,0 +1,99 @@
+import sys
+import math
+
+tab1=("e", "a", "i", "o", "n", "r", "t", "l", "s", "u")
+tab2=("d","g")
+tab3=("b", "c", "m", "p")
+tab4=("f", "h", "v", "w", "y")
+tab5=("k")
+tab8=("j", "x")
+tab10=("q", "z")
+
+dico=[]
+
+def dansLeDico(lettres, mot):
+    allletters = lettres.copy()
+    print("mot : " + str(mot), file=sys.stderr, flush=True)
+    print(allletters, file=sys.stderr, flush=True)
+    ok=1
+    tabMot=list(mot)
+    for chaquelettredumot in tabMot:
+        try:
+            index = allletters.index(chaquelettredumot)
+        except ValueError:
+            index = -1
+        if index==-1:
+            ok=0
+            break
+        else:
+            allletters.remove(chaquelettredumot)
+            print(allletters, file=sys.stderr, flush=True)
+    return ok
+
+def score(mot):
+    score=0
+    tabMot=list(mot)
+    for lettre in tabMot:
+        try:
+            index = tab1.index(lettre)
+        except ValueError:
+            index = -1
+        if index!=-1:
+            score+=1
+        try:
+            index = tab2.index(lettre)
+        except ValueError:
+            index = -1
+        if index!=-1:
+            score+=2
+        try:
+            index = tab3.index(lettre)
+        except ValueError:
+            index = -1
+        if index!=-1:
+            score+=3
+        try:
+            index = tab4.index(lettre)
+        except ValueError:
+            index = -1
+        if index!=-1:
+            score+=4
+        try:
+            index = tab5.index(lettre)
+        except ValueError:
+            index = -1
+        if index!=-1:
+            score+=5
+        try:
+            index = tab8.index(lettre)
+        except ValueError:
+            index = -1
+        if index!=-1:
+            score+=8
+        try:
+            index = tab10.index(lettre)
+        except ValueError:
+            index = -1
+        if index!=-1:
+            score+=10
+    return score
+    
+
+n = int(input())
+for i in range(n):
+    w = input()
+    dico.append(w)
+
+letters = input()
+scoreFinal=0
+motFinal=""
+
+lettres=list(letters)
+for mot in dico:
+    if (dansLeDico(lettres, mot)):
+        if score(mot)>scoreFinal:
+            scoreFinal=score(mot)
+            motFinal=mot
+# To debug: print("Debug messages...", file=sys.stderr, flush=True)
+print("---------", file=sys.stderr, flush=True)
+print(motFinal)
