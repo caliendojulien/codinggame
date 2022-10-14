@@ -1,0 +1,24 @@
+import sys
+import math
+
+n = int(input())
+resultat=10000000
+tabPi=[]
+def distance(nbre1, nbre2):
+    return abs(nbre1-nbre2)
+
+for i in range(n):
+    pi = int(input())
+    tabPi.append(pi)
+
+# On trie le tableau pour que la recherche soit plus facile
+tabPi.sort()
+
+## Comme le tableau est trié, on compare seulement la case et sa voisine
+for p in range(len(tabPi)):
+    if p<len(tabPi)-1:
+        d=distance(tabPi[p], tabPi[p+1])
+        if d<resultat:
+            resultat=d
+
+print(resultat)
