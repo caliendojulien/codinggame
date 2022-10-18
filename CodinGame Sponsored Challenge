@@ -1,0 +1,52 @@
+import sys
+import math
+
+hauteur = int(input())
+largeur = int(input())
+nb_joueurs = int(input())
+
+DECALE_VERS_LE_BAS = "D"
+DECALE_VERS_LE_HAUT = "C"
+DECALE_VERS_LA_DROITE = "A"
+DECALE_VERS_LA_GAUCHE = "E"
+BOUGE_PAS = "B"
+MUR="#"
+VIDE="_"
+
+premier_coup=1
+while True:
+    g_bouge=0
+    case_au_dessus_de_moi = input()
+    case_a_droite_de_moi = input()
+    case_au_dessous_de_moi = input()
+    case_a_gauche_de_moi = input()
+    positions=[]
+    for i in range(nb_joueurs):
+        position_x, position_y = [int(j) for j in input().split()]
+        positions.append(position_x)
+        positions.append(position_y)
+    ma_position_y=positions[:-1]
+    del positions[-1]
+    ma_position_x=positions[:-1]
+    del positions[-1]
+    print("x:"+str(ma_position_x[0]), file=sys.stderr)
+    print("y:"+str(ma_position_y[0]), file=sys.stderr)
+    if premier_coup:
+        premier_coup=0
+        print(BOUGE_PAS)
+    if g_bouge!=0:
+        if case_au_dessus_de_moi!=MUR and ma_position_y[0]-1 not in positions:
+            print(DECALE_VERS_LE_HAUT)
+            g_bouge=1
+        elif case_a_droite_de_moi!=MUR and ma_position_x[0]+1 not in positions:
+            print(DECALE_VERS_LA_DROITE)
+            g_bouge=1
+        elif case_au_dessous_de_moi!=MUR and ma_position_y[0]+1 not in positions:
+            print(DECALE_VERS_LE_BAS)
+            g_bouge=1
+        elif case_a_gauche_de_moi!=MUR and ma_position_x[0]-1 not in positions:
+            print(DECALE_VERS_LA_GAUCHE)
+            g_bouge=1
+        else:
+            print(BOUGE_PAS)
+            g_bouge=1
